@@ -53,26 +53,26 @@ def load():
 def getFinalValue():
     return 0
 
-def checkValue(sequence, matrix):
- 
-    for value in sequence:
-        for coor in getIndexes(matrix, value):
-            if all(isinstance(x, int) for x in matrix.iloc[coor[0]]):
-                print(f"Value: {value}")
-                matrix = matrix.astype(int)
-                print(f"Result: {int(value) * matrix.values.sum()}")
-                return
-            if all(isinstance(x, int) for x in matrix[coor[1]]):
-                print(f"Value: {value}")
-                matrix = matrix.astype(int)
-                print(f"Result: {int(value) * matrix.values.sum()}")
-                return
+def checkValue(value, matrix):
+
+    for coor in getIndexes(matrix, value):
+        if all(isinstance(x, int) for x in matrix.iloc[coor[0]]):
+            print(f"Value: {value}")
+            matrix = matrix.astype(int)
+            print(f"Result: {int(value) * matrix.values.sum()}")
+            exit()
+        if all(isinstance(x, int) for x in matrix[coor[1]]):
+            print(f"Value: {value}")
+            matrix = matrix.astype(int)
+            print(f"Result: {int(value) * matrix.values.sum()}")
+            exit()
 
 
 def main():
     sequence, data = load()
-    for matrix in data:
-        checkValue(sequence, matrix)
+    for number in sequence:
+        for matrix in data:
+            checkValue(number, matrix)
         
 
 if __name__ == "__main__":
