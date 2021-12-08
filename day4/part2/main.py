@@ -31,7 +31,6 @@ def getIndexes(dfObj, value):
     # the index of element in the dataframe
     return listOfPos
 
-
 def load():
     matrix = []
     column = 0
@@ -67,7 +66,6 @@ def checkValue(value, matrix, done, i):
             done.append(i)
             return
 
-
 def main():
     sequence, data = load()
     done = []
@@ -76,7 +74,6 @@ def main():
             if i not in done:
                 checkValue(number, matrix, done,  i)
         
-
 if __name__ == "__main__":
     main()
     
