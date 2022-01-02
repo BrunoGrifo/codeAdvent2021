@@ -17,17 +17,17 @@ def dicCount(occurrences, total):
             occurrences[x] = 1
 
 def getCount(total):
-    occurrences = {}
+    small_array = {}
     for x in total:
-        if x in occurrences:
-            occurrences[x] += 1
-        if x not in occurrences:
-            occurrences[x] = 1
-    return occurrences
+        if x in small_array:
+            small_array[x] += 1
+        if x not in small_array:
+            small_array[x] = 1
+    return small_array
 
 def runSequence(template):
     initial = ['B','N','S','O','S','B','B','K','P','C','S','C','P','K','P','O','P','N','N','K']
-    for i in range(5):
+    for i in range(20):
         print(f"day {i}")
         new = []
         for x in range(0, len(initial)-1):
@@ -38,7 +38,6 @@ def runSequence(template):
 
     print("Counting....")
     occurrences = {}
-    dicCount(occurrences, initial)
     
     storage = {}
 
@@ -51,11 +50,10 @@ def runSequence(template):
 
         if f"{initial[j]}{initial[j+1]}" in storage:
             #final.extend(storage[f"{initial[j]}{initial[j+1]}"])
-            for key, value in storage[f"{initial[j]}{initial[j+1]}"]:
+            for key, value in storage[f"{initial[j]}{initial[j+1]}"].items():
                 occurrences[key]+=value
-
         else:
-            for i in range(5,10):
+            for i in range(20,40):
                 temp_new = []
                 for x in range(0, len(pivot)-1):
                     temp_new.append(pivot[x])
@@ -63,19 +61,19 @@ def runSequence(template):
                 last = pivot[x+1]
                 pivot = copy.copy(temp_new)
                 pivot.append(last)
-
+            
             storage[f"{initial[j]}{initial[j+1]}"] = copy.copy(getCount(temp_new))
             #storage[f"{initial[j]}{initial[j+1]}"] = temp_new
 
             dicCount(occurrences, temp_new)
             #final.extend(temp_new)
     
-    final.append(initial[-1])
+    occurrences[initial[-1]]+=1
+    #final.append(initial[-1])
 
-    
     key_max = max(occurrences.values())
     key_min = min(occurrences.values())
-    return max_v, min_v 
+    return key_max, key_min 
 
 def main():
     template = load()
